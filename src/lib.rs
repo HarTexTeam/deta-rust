@@ -2,21 +2,22 @@
 //!
 //! (Unofficial) Deta SDK for Rust.
 
-use std::marker::PhantomData;
-
 #[cfg(feature = "base")]
 pub mod base;
+pub mod error;
 
-pub struct Deta<S: Service> {
+pub struct Deta {
     project_id: String,
     project_key: String,
-    phantom: PhantomData<S>,
 }
 
-impl<S: Service> Deta<S> {
+impl Deta {
     pub fn new(project_id: String, project_key: String) -> Self {
-        Self { project_id, project_key, phantom: PhantomData }
+        Self { project_id, project_key }
+    }
+
+    #[cfg(feature = "base")]
+    pub fn base(&self) -> base::Base {
+        base::Base::new(self.project_id.clone(), self.project_key.clone())
     }
 }
-
-pub trait Service {}
