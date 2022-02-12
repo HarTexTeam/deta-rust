@@ -40,4 +40,4 @@ jobs:
           override: true
           profile: default
       - name: Run cargo fmt
-        run: cargo fmt
+        run: cargo fmt --all -- check
